@@ -1,3 +1,8 @@
+<?php
+session_start();
+$titulo = "";
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -31,7 +36,7 @@
 
         <div class="hero_bg_box">
             <div class="bg_img_box">
-                <img src="../assets/images/hero-bg.png" alt="">
+                <img src="images/hero-bg.png" alt="">
             </div>
         </div>
 
@@ -45,6 +50,7 @@
                 <h2>
                     Pre-Matricula <span>UPRA</span>
                 </h2>
+                <h3>Admin</h3>
             </div>
             <div class="row">
                 <div class="col-md-6 ">
@@ -58,64 +64,51 @@
                             Autenticarse
                         </h3>
                         <?php
-                        //if (isset($_POST['submit']))
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            if ((!empty($_POST['email'])) && (!empty($_POST['pass']))) { //conectarme a ver si existe ese estudiante de honor    
-                                include_once("db_info.php");
-                                $email = $_POST['email'];
+                            if ((!empty($_POST['user_name'])) && (!empty($_POST['pass']))) {
+                                include_once("../db_info.php");
+                                $user_name = $_POST['user_name'];
                                 $pass = $_POST['pass'];
 
-                                $query = "SELECT * FROM estudiantes
-                      WHERE email = '$email'";
+                                $query = "SELECT * FROM admin
+                                WHERE user_name = '$user_name'";
 
                                 $result = $dbc->query($query);
                                 if ($result->num_rows == 1) {
                                     $row = $result->fetch_assoc();
-                                    echo "psw de la base de datos: " . $row['psw'];
 
-                                    //  Redirigir el usuario a la página correspondiente
-                                    if (password_verify($pass, $row['psw']) && $row['rol'] == 0) {
+                                    //if (password_verify($pass, $row['password'])) {
+                                    if ($pass === $row['password']) {
                                         session_start();
-                                        $_SESSION['id'] = $row['estID'];
-                                        $_SESSION['nombre'] = $row['nombre'] . ' ' . $row['apellidoP'];
-                                        $_SESSION['email'] = $row['email'];
-                                        $_SESSION['rol'] = $row['rol'];
+                                        $_SESSION['user_name'] = $row['user_name'];
                                         echo "<p>password correcto</p>";
-                                        header('Location: admin/index.php');
-                                    } elseif (password_verify($pass, $row['psw']) && $row['rol'] == 1) {
-                                        session_start();
-                                        $_SESSION['id'] = $row['estID'];
-                                        $_SESSION['nombre'] = $row['nombre'] . ' ' . $row['apellidoP'];
-                                        $_SESSION['email'] = $row['email'];
-                                        $_SESSION['rol'] = $row['rol'];
-                                        echo "<p>password correcto</p>";
-                                        header('Location: user/index.php');
+                                        header('Location: cursos.php');
                                     } else
                                         echo "<p>password incorrecto</p>";
                                 } else {
-                                    print '<h3>Su email no concuerda con nuestros archivos!<br />Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';
+                                    print '<h3>Su nombre de usuario no concuerda con nuestros archivos!<br />Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';
                                 }
                                 $dbc->close();
                             } else {   // No entró uno de los campos
-                                print '<h3>Asegúrese de entrar su email y número de estudiante. <br /> Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';
+                                print '<h3>Asegúrese de entrar su número de usuario y contraseña. <br /> Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';
                             }
                         } else // No llegó por un submit, por lo tanto hay que presentar el formulario
                         {
                             print '<form action="index.php" method="post">
-        <table border="0">
-          <tr>
-            <td width="140" align="right">Email:</td>
-            <td><input type="email" name="email" size="50" maxlength="60" required /></td>
-          </tr>
-          <tr>
-            <td width="255" align="right">Password:</td>
-            <td><input type="password" name="pass" ></td>
-          </tr>
-         
-          <tr>
-            <td></td>
-            <td><input type="submit" class="btn btn-primary" name="submit" value="Entrar" /></td>
-          </tr></table></form>';
+                                    <table border="0">
+                                      <tr>
+                                        <td width="140" align="right">Nombre de usuario:</td>
+                                        <td><input type="number" name="user_name" size="50" maxlength="60" required /></td>
+                                      </tr>
+                                      <tr>
+                                        <td width="255" align="right">Password:</td>
+                                        <td><input type="password" name="pass" ></td>
+                                      </tr>
+
+                                      <tr>
+                                        <td></td>
+                                        <td><input type="submit" class="btn btn-primary" name="submit" value="Entrar" /></td>
+                                      </tr></table></form>';
                         }
                         ?>
                     </div>

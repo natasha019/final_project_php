@@ -63,7 +63,6 @@ $titulo = "Estudiantes de Honor UPRA";
                             Autenticarse
                         </h3>
                         <?php
-                        //if (isset($_POST['submit']))
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             if ((!empty($_POST['student_id'])) && (!empty($_POST['pass']))) { //conectarme a ver si existe ese estudiante de honor    
                                 include_once("../db_info.php");
@@ -76,29 +75,20 @@ $titulo = "Estudiantes de Honor UPRA";
                                 $result = $dbc->query($query);
                                 if ($result->num_rows == 1) {
                                     $row = $result->fetch_assoc();
-                                    echo "psw de la base de datos: " . $row['password'];
 
                                     //  Redirigir el usuario a la página correspondiente
-                                    if (password_verify($pass, $row['password']) && $row['rol'] == 0) {
+                                    //if (password_verify($pass, $row['password'])) {
+                                    if ($pass === $row['password']) {
                                         session_start();
-                                        $_SESSION['id'] = $row['estID'];
-                                        $_SESSION['nombre'] = $row['nombre'] . ' ' . $row['apellidoP'];
+                                        $_SESSION['name'] = $row['user_name'] . ' ' . $row['last_name'];
                                         $_SESSION['student_id'] = $row['student_id'];
-                                        $_SESSION['rol'] = $row['rol'];
+                                        $_SESSION['year_of_study'] = $row['year_of_study'];
                                         echo "<p>password correcto</p>";
-                                        header('Location: admin/index.php');
-                                    } elseif (password_verify($pass, $row['password']) && $row['rol'] == 1) {
-                                        session_start();
-                                        $_SESSION['id'] = $row['estID'];
-                                        $_SESSION['nombre'] = $row['nombre'] . ' ' . $row['apellidoP'];
-                                        $_SESSION['student_id'] = $row['student_id'];
-                                        $_SESSION['rol'] = $row['rol'];
-                                        echo "<p>password correcto</p>";
-                                        header('Location: user/index.php');
+                                        header('Location: cursos.php');
                                     } else
                                         echo "<p>password incorrecto</p>";
                                 } else {
-                                    print '<h3>Su nombre de usuario no concuerda con nuestros archivos!<br />Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';
+                                    print '<h3>Su nombre de estudiante no concuerda con nuestros archivos!<br />Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';
                                 }
                                 $dbc->close();
                             } else {   // No entró uno de los campos

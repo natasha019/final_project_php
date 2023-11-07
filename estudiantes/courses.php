@@ -1,3 +1,16 @@
+<?php
+
+$limite = 5;
+
+if (!isset($_GET['desde'])) {
+
+    $desde = 0;
+} else {
+
+    $desde = $_GET['desde'];
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -40,91 +53,81 @@
     <?php include("layouts/header.php"); ?>
 
 
-    <!-- service section -->
+    <!-- courses section -->
+    <?php
+    include_once("../db_info.php");
+    $query = "SELECT COUNT(course_id) as contador
+                FROM course";
+
+    $result = $dbc->query($query);
+    $row = $result->fetch_assoc();
+    $contador = $row['contador'];
+    $total_pags = ceil($contador / $limite);
+    $pag_actual = ceil($desde / $limite) + 1;
+
+    $query = " SELECT * FROM course";
+
+    try {
+        if ($result = $dbc->query($query)) {
+            print " <table class='table table-striped'>";
+            print "<tr> 
+                        <th>Seccion</th>
+                        <th>Codigo</th>
+                        <th>Nombre del curso</th>
+                        <th>Creditos</th>
+                        <th>Cupo</th>
+                    </tr>";
+            while ($row = $result->fetch_assoc()) {
+
+                print "<tr>
+                            <td>" . $row['section_id'] . "</td>
+                            <td>" . $row['course_id'] . "</td>
+                            <td>" . $row['title'] . "</td>
+                            <td>" . $row['credits'] . "</td>
+                            <td>" . $row['capacity'] . "</td>
+                        </tr>";
+            }
+            print "</table>";
+            echo "<h2 style='text-align:center'>";
+
+            for ($i = 1; $i <= $total_pags; $i++)
+                echo "<a  class='btn pages' href='index.php?desde=" . (($i - 1) * $limite) . "&limite=$limite&ordenID=$ordenID'> $i </a>&nbsp;&nbsp;";
+
+            echo "</h2>";
+        }
+    } catch (Exception $e) {
+        print "<h3 style=\"color:red\">Error en el query: " . $dbc->error . "</h3>";
+    } finally {
+        $dbc->close();
+    }
+
+    ?>
 
     <section class="service_section layout_padding">
         <div class="service_container">
             <div class="container ">
                 <div class="heading_container heading_center">
                     <h2>
-                        Our <span>Services</span>
+                        Cursos <span>Disponibles</span>
                     </h2>
-                    <p>
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-                    </p>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 ">
-                        <div class="box ">
-                            <div class="img-box">
-                                <img src="../assets/images/s1.png" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h5>
-                                    Currency Wallet
-                                </h5>
-                                <p>
-                                    fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                                    The
-                                    point of using
-                                </p>
-                                <a href="">
-                                    Read More
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 ">
-                        <div class="box ">
-                            <div class="img-box">
-                                <img src="../assets/images/s2.png" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h5>
-                                    Security Storage
-                                </h5>
-                                <p>
-                                    fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                                    The
-                                    point of using
-                                </p>
-                                <a href="">
-                                    Read More
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 ">
-                        <div class="box ">
-                            <div class="img-box">
-                                <img src="../assets/images/s3.png" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h5>
-                                    Expert Support
-                                </h5>
-                                <p>
-                                    fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                                    The
-                                    point of using
-                                </p>
-                                <a href="">
-                                    Read More
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="btn-box">
-                    <a href="">
-                        View All
-                    </a>
+                <div>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Seccion</th>
+                            <th>Hora</th>
+                            <th>Nombre del curso</th>
+                            <th>Cupo</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-        </div>
     </section>
 
-    <!-- end service section -->
+    <!-- end courses section -->
 
     <!-- info section -->
 
