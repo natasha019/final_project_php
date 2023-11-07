@@ -33,7 +33,7 @@ if(isset($_GET['student_id']) && is_numeric($_GET['student_id']))
 
               FROM student
 
-              WHERE student_id={$_GET['student_id']}";
+              WHERE student_id={$_GET['student_id']}";  
 
     //echo "<p>query: ".$query."</p>";
 
