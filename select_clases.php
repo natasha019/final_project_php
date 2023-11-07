@@ -13,7 +13,7 @@
         
         <?php
         include_once("db_info.php");
-        $query = " SELECT * FROM course";
+        $query = " SELECT course_id,title,section_id,credits FROM course NATURAL join section ";
 
         try {
             if ($result = $dbc->query($query)) {
