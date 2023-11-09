@@ -46,7 +46,7 @@
                     Pre-Matricula <span>UPRA</span>
                 </h2>
             </div>
-            <div class="row">
+            <div class="row shadow p-3 mb-5 bg-body-tertiary rounded" id="login">
                 <div class="col-md-6 ">
                     <div class="img-box">
                         <img src="assets/images/slider-img.png" alt="">
@@ -102,26 +102,25 @@
                         } else // No llegó por un submit, por lo tanto hay que presentar el formulario
                         {
                             print '<form action="index.php" method="post">
-        <table border="0">
-          <tr>
-            <td width="140" align="right">Email:</td>
-            <td><input type="email" name="email" size="50" maxlength="60" required /></td>
-          </tr>
-          <tr>
-            <td width="255" align="right">Password:</td>
-            <td><input type="password" name="pass" ></td>
-          </tr>
-         
-          <tr>
-            <td></td>
-            <td><input type="submit" class="btn btn-primary" name="submit" value="Entrar" /></td>
-          </tr></table></form>';
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="email" class="form-label mt-4">Correo Electronico</label>
+                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="email@upr.edu">
+                                </div>
+                                <div class="form-group">
+                                    <label for="passsword" class="form-label mt-4">Password</label>
+                                    <input type="password" class="form-control" id="password" name="pass" placeholder="Password" autocomplete="off">
+                                </div>
+                                <button type="submit" name="submit" value="Entrar" class="btn btn-primary">Entrar</button>
+                            </fieldset>
+                        </form>';
                         }
                         ?>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
 
     <!-- login about section -->

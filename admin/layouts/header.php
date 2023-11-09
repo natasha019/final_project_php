@@ -23,14 +23,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ">
                         <li class="nav-item ">
-                            <a class="nav-link" href="courses.php">Pre-Matricula <span class="sr-only">(current)</span> </a>
+                            <a class="nav-link" href="courses.php">Cursos <span class="sr-only">(current)</span> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="myCourses.php"> Mis Cursos</a>
+                            <a class="nav-link" href="matricula.php"> Matricula</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="matricula.php"> Cambiar Password</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                            <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
