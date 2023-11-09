@@ -69,15 +69,15 @@ if (!isset($_GET['desde'])) {
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (isset($_POST['course_id'])) {
-                            $student_id = '000001111';
+                            $student_id = '840194867';
                             $course_id = $_POST['course_id'];
                             $section_id = $_POST['section_id'];
                             $capacity = $_POST['capacity'];
 
-                            // Determine the status based on capacity
+                            // determinamos el estado dependiendo de la capacidad
                             $status = ($capacity > 0) ? 0 : 1;
 
-                            // Insert the selected course into the database with the current timestamp
+                            // insertar curso con el tiempo actual 
                             $sql = "INSERT INTO enrollment (student_id, course_id, section_id, timestamp, status) 
                             VALUES ('$student_id', '$course_id', '$section_id', NOW(), '$status')";
                             if ($dbc->query($sql) === TRUE) {
@@ -88,50 +88,61 @@ if (!isset($_GET['desde'])) {
                         }
                     }
 
-                    //query para ver las clases
-                    $query = "SELECT COUNT(course_id) as contador
-                     FROM course";
-
+                    // query para ver las clases
+                    $query = "SELECT COUNT(course_id) as contador FROM course";
                     $result = $dbc->query($query);
                     $row = $result->fetch_assoc();
                     $contador = $row['contador'];
                     $total_pags = ceil($contador / $limite);
                     $pag_actual = ceil($desde / $limite) + 1;
 
-                    $query = "SELECT DISTINCT c.course_id, c.title, s.section_id, c.credits, s.capacity
-                    FROM course c
-                    INNER JOIN section s ON s.course_id = c.course_id
-                    ORDER BY c.course_id, s.section_id";
+                    // chequeamos que el query de búsqueda esté disponible
+                    if (isset($_GET['query_busqueda'])) {
+                        $query_busqueda = $_GET['query_busqueda'];
+
+                        // Modify your SQL query to include a WHERE clause
+                        $query = "SELECT DISTINCT c.course_id, c.title, s.section_id, c.credits, s.capacity
+                            FROM course c
+                            INNER JOIN section s ON s.course_id = c.course_id
+                            WHERE c.course_id LIKE '%$query_busqueda%'
+                            ORDER BY c.course_id, s.section_id";
+                    } else {
+                        // Your existing query without search
+                        $query = "SELECT DISTINCT c.course_id, c.title, s.section_id, c.credits, s.capacity
+                            FROM course c
+                            INNER JOIN section s ON s.course_id = c.course_id
+                            ORDER BY c.course_id, s.section_id";
+                    }
 
                     try {
                         if ($result = $dbc->query($query)) {
-                            print   "<div class='row d-flex justify-content-end pr-3'>
-                            <div class='col-'><form class='d-flex'>
-                            <input class='form-control me-sm-2' type='search' placeholder='Search'>
-                            <button class='btn btn-secondary my-2 my-sm-0' type='submit'>Search</button>
-                          </form></div>
-                          </div>";
+                            print "<div class='row d-flex justify-content-end pr-3'>
+                            <div class='col-'>
+                                <form class='d-flex' method='GET' action='courses.php'>
+                                    <input class='form-control me-sm-2' type='search' placeholder='Search' name='query_busqueda'>
+                                    <button class='btn btn-secondary my-2 my-sm-0' type='submit'>Search</button>
+                                </form>
+                            </div>
+                        </div>";
 
                             print " <table class='table table-striped'>";
                             print "<tr> 
-                            <th></th>
-                        <th>Codigo</th>
-                        <th>Seccion</th>                        
-                        <th>Nombre del curso</th>
-                        <th>Creditos</th>
-                        <th>Cupo</th>                        
-                    </tr>";
+                                <th></th>
+                                <th>Codigo</th>
+                                <th>Seccion</th>                        
+                                <th>Nombre del curso</th>
+                                <th>Creditos</th>
+                                <th>Cupo</th>                        
+                            </tr>";
                             while ($row = $result->fetch_assoc()) {
-
                                 print "<tr><form method='POST'>
-                            <td><input type='submit' value='Add Course'></td>
-                            <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
-                            <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
-                            <td>" . $row['title'] . "</td>
-                            <td>" . $row['credits'] . "</td>
-                            <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>
-                            
-                            </form></tr>";
+                                <td><input type='submit' value='Add Course'></td>
+                                <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
+                                <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
+                                <td>" . $row['title'] . "</td>
+                                <td>" . $row['credits'] . "</td>
+                                <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>
+                                </form></tr>";
                             }
                             print "</table>";
                             echo "<h2 style='text-align:center'>";
@@ -146,8 +157,8 @@ if (!isset($_GET['desde'])) {
                     } finally {
                         $dbc->close();
                     }
-
                     ?>
+
 
 
                 </div>

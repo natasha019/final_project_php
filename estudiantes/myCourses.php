@@ -56,37 +56,48 @@
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (isset($_POST['course_id'])) {
-                            $student_id = '000001111';
+                            $student_id = '840194867';
                             $course_id = $_POST['course_id'];
                             $section_id = $_POST['section_id'];
-                            $capacity = $_POST['capacity'];
+                          
 
-                            // Determine the status based on capacity
-                            $status = ($capacity > 0) ? 0 : 1;
 
-                            // Insert the selected course into the database with the current timestamp
-                            $sql = "INSERT INTO enrollment (student_id, course_id, section_id, timestamp, status) 
-                            VALUES ('$student_id', '$course_id', '$section_id', NOW(), '$status')";
+                            // Borrar una clase de mis cursos  
+                            $sql = "DELETE FROM enrollment WHERE student_id = '$student_id' AND course_id = '$course_id'";
                             if ($dbc->query($sql) === TRUE) {
-                                echo "Course added to the database successfully.";
+                                echo "Curso eliminado de la base de datos.";
                             } else {
                                 echo "Error: " . $sql . "<br>" . $dbc->error;
                             }
                         }
                     }
+                     // chequeamos que el query de búsqueda esté disponible
+                     $student_id = '840194867'; 
 
-                    //query para ver las clases            
-                    $query = "SELECT * 
-                    FROM enrollment e 
-                    INNER JOIN course c WHERE e.course_id = c.course_id AND e.student_id = '1111'";
+                    // Check if a search query for course_id is provided
+                    if (isset($_GET['query_busqueda'])) {
+                        $query_busqueda = $_GET['query_busqueda'];
 
+                        $query = "SELECT * 
+                                FROM enrollment e 
+                                INNER JOIN course c ON e.course_id = c.course_id
+                                WHERE e.student_id = '$student_id' AND c.course_id = '$query_busqueda'";
+                    } else {
+                        // Default query without search
+                        $query = "SELECT * 
+                                FROM enrollment e 
+                                INNER JOIN course c ON e.course_id = c.course_id
+                                WHERE e.student_id = '$student_id'";
+}
                     try {
                         if ($result = $dbc->query($query)) {
                             print   "<div class='row d-flex justify-content-end pr-3'>
-                            <div class='col-'><form class='d-flex'>
-                            <input class='form-control me-sm-2' type='search' placeholder='Search'>
+                            <div class='col-'>
+                            <form class='d-flex' method='GET' action='myCourses.php'>
+                            <input class='form-control me-sm-2' type='search' placeholder='Search' name='query_busqueda'>
                             <button class='btn btn-secondary my-2 my-sm-0' type='submit'>Search</button>
-                          </form></div>
+                        </form>
+                          </div>
                           </div>";
 
                             print "<table class='table table-striped mb-5'>";
