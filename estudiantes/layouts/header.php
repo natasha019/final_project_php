@@ -22,24 +22,16 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="courses.html">Pre-Matricula <span class="sr-only">(current)</span> </a>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="courses.php">Pre-Matricula <span class="sr-only">(current)</span> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="studentCourses.html"> Mis Cursos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="service.html">Services</a>
+                            <a class="nav-link" href="myCourses.php"> Mis Cursos</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
                         </li>
-                        <form class="form-inline">
-                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </form>
                     </ul>
                 </div>
             </nav>
