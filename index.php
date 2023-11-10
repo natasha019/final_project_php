@@ -58,38 +58,60 @@
                             Autenticarse
                         </h3>
                         <?php
-                        //if (isset($_POST['submit']))
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            if ((!empty($_POST['email'])) && (!empty($_POST['pass']))) { //conectarme a ver si existe ese estudiante de honor    
+                            if ((!empty($_POST['email'])) && (!empty($_POST['pass']))) { //conectarme a ver si existe ese estudiante o admin   
                                 include_once("db_info.php");
                                 $email = $_POST['email'];
                                 $pass = $_POST['pass'];
 
-                                $query = "SELECT * FROM estudiantes
-                      WHERE email = '$email'";
+                                //query para buscar al admin en la base de datos
+                                echo $email;
+                                $queryA = "SELECT * FROM admin
+                                        WHERE email = ?";
+                                $stmt = $dbc->prepare($queryA);
+                                $stmt->bind_param("s", $email);
 
-                                $result = $dbc->query($query);
-                                if ($result->num_rows == 1) {
-                                    $row = $result->fetch_assoc();
-                                    echo "psw de la base de datos: " . $row['psw'];
+                                // ejecuta el statement
+                                $stmt->execute();
+                                $resultA = $stmt->get_result();
+
+                                //query para buscar al estudiante en la base de datos
+                                $queryS = "SELECT * FROM student
+                                        WHERE email = ?";
+                                $stmt = $dbc->prepare($queryS);
+                                $stmt->bind_param("s", $email);
+
+                                // ejecuta el statement
+                                $stmt->execute();
+                                $resultS = $stmt->get_result();
+
+                                //si encuentra al admin
+                                if ($resultA->num_rows == 1) {
+                                    $row = $resultA->fetch_assoc();
 
                                     //  Redirigir el usuario a la página correspondiente
-                                    if (password_verify($pass, $row['psw']) && $row['rol'] == 0) {
+                                    //if (password_verify($pass, $row['password'])) {
+                                    if ($pass === $row['password']) {
                                         session_start();
-                                        $_SESSION['id'] = $row['estID'];
-                                        $_SESSION['nombre'] = $row['nombre'] . ' ' . $row['apellidoP'];
+                                        $_SESSION['name'] = $row['user_name'] . ' ' . $row['user_lastname'];
                                         $_SESSION['email'] = $row['email'];
-                                        $_SESSION['rol'] = $row['rol'];
                                         echo "<p>password correcto</p>";
-                                        header('Location: admin/index.php');
-                                    } elseif (password_verify($pass, $row['psw']) && $row['rol'] == 1) {
+                                        header('Location: admin/courses.php');
+                                    } else
+                                        echo "<p>password incorrecto</p>";
+
+                                    //si encuentra al estudiante      
+                                } elseif ($resultS->num_rows == 1) {
+                                    $row = $resultS->fetch_assoc();
+
+                                    //if (password_verify($pass, $row['password'])) {
+                                    if ($pass === $row['password']) {
                                         session_start();
-                                        $_SESSION['id'] = $row['estID'];
-                                        $_SESSION['nombre'] = $row['nombre'] . ' ' . $row['apellidoP'];
+                                        $_SESSION['student_num'] = $row['student_id'];
+                                        $_SESSION['nombre'] = $row['user_name'] . ' ' . $row['user_lastname'];
                                         $_SESSION['email'] = $row['email'];
-                                        $_SESSION['rol'] = $row['rol'];
                                         echo "<p>password correcto</p>";
-                                        header('Location: user/index.php');
+                                        header('Location: estudiantes/courses.php');
                                     } else
                                         echo "<p>password incorrecto</p>";
                                 } else {
