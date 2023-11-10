@@ -79,9 +79,10 @@
                         $query_busqueda = $_GET['query_busqueda'];
 
                         $query = "SELECT * 
-                                FROM enrollment e 
-                                INNER JOIN course c ON e.course_id = c.course_id
-                                WHERE e.student_id = '$student_id' AND c.course_id = '$query_busqueda'";
+                            FROM enrollment e 
+                            INNER JOIN course c ON e.course_id = c.course_id
+                            WHERE e.student_id = '$student_id'
+                            AND c.course_id LIKE '%$query_busqueda%'";
                     } else {
                         // Default query without search
                         $query = "SELECT * 
