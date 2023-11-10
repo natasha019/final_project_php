@@ -59,7 +59,7 @@
                             $student_id = '840194867';
                             $course_id = $_POST['course_id'];
                             $section_id = $_POST['section_id'];
-                          
+
 
 
                             // Borrar una clase de mis cursos  
@@ -71,8 +71,8 @@
                             }
                         }
                     }
-                     // chequeamos que el query de búsqueda esté disponible
-                     $student_id = '840194867'; 
+                    // chequeamos que el query de búsqueda esté disponible
+                    $student_id = '840194867';
 
                     // Check if a search query for course_id is provided
                     if (isset($_GET['query_busqueda'])) {
@@ -89,7 +89,7 @@
                                 FROM enrollment e 
                                 INNER JOIN course c ON e.course_id = c.course_id
                                 WHERE e.student_id = '$student_id'";
-}
+                    }
                     try {
                         if ($result = $dbc->query($query)) {
                             print   "<div class='row d-flex justify-content-end pr-3'>
@@ -137,32 +137,12 @@
 
     <!-- end courses section -->
 
-    <!-- info section -->
-
-    <section class="info_section layout_padding2">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-6 col-lg-2 mx-auto info_col">
-
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-
-    <!-- end info section -->
 
     <!-- footer section -->
-    <section class="info_section">
-        <div class="container">
-            <p class="text-center">
-                &copy; <span id="displayYear"></span> All Rights Reserved By
-                <a href="https://html.design/">Free Html Templates</a>
-            </p>
-        </div>
-    </section>
-    <!-- footer section -->
+
+    <?php include("layouts/footer.php") ?>
+
+    <!-- end footer section -->
 
     <!-- jQery -->
     <script type="text/javascript" src="../assets/js/jquery-3.4.1.min.js"></script>
