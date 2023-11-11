@@ -68,43 +68,44 @@ if (!isset($_GET['desde'])) {
                     <?php
                     include_once("../db_info.php");
                     //query para insertar clases
-
-                    if (isset($_POST['course_id']) && isset($_POST['section_id'])) {
-                        $course = $_POST['course_id'];
-                        $section = $_POST['section_id'];
-                    
-                        $query_eli = "DELETE FROM course 
-                                      WHERE course_id = '$course' AND section_id = '$section'";
-                    
+                    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
+                        //esto lo hice con chat pq cuando le daba al boton como no tenia un name como tal pues boom
+                        // yo dije pero pq no me funciona esto xd y era el name ese que faltaba
+                        //pero esto divide los valores del post
+                        list($course_id, $section_id) = explode("|", $_POST['delete']);
+                       
+                        $query_eli = "DELETE FROM section 
+                                      WHERE course_id = '$course_id' AND section_id = '$section_id'";
+                        
                         if ($dbc->query($query_eli) === TRUE) {
                             echo "Curso eliminado correctamente";
                         } else {
                             echo "Error: " . $query_eli . "<br>" . $dbc->error;
                         }
                     
-                        $dbc->close();
+                        
                     }
-                    
+                
 
 
-                        if (isset($_POST['course_id'])) {
-                            $student_id = '000001111';
-                            $course_id = $_POST['course_id'];
-                            $section_id = $_POST['section_id'];
-                            $capacity = $_POST['capacity'];
+                        // if (isset($_POST['course_id']) && isset($_POST['editar'])) {
+                        //     $student_id = '000001111';
+                        //     $course_id = $_POST['course_id'];
+                        //     $section_id = $_POST['section_id'];
+                        //     $capacity = $_POST['capacity'];
 
-                            // Determine the status based on capacity
-                            $status = ($capacity > 0) ? 0 : 1;
+                        //     // Determine the status based on capacity
+                        //     $status = ($capacity > 0) ? 0 : 1;
 
-                            // Insert the selected course into the database with the current timestamp
-                            $sql = "INSERT INTO enrollment (student_id, course_id, section_id, timestamp, status) 
-                            VALUES ('$student_id', '$course_id', '$section_id', NOW(), '$status')";
-                            if ($dbc->query($sql) === TRUE) {
-                                echo "Course added to the database successfully.";
-                            } else {
-                                echo "Error: " . $sql . "<br>" . $dbc->error;
-                            }
-                        }
+                        //     // Insert the selected course into the database with the current timestamp
+                        //     $sql = "INSERT INTO enrollment (student_id, course_id, section_id, timestamp, status) 
+                        //     VALUES ('$student_id', '$course_id', '$section_id', NOW(), '$status')";
+                        //     if ($dbc->query($sql) === TRUE) {
+                        //         echo "Course added to the database successfully.";
+                        //     } else {
+                        //         echo "Error: " . $sql . "<br>" . $dbc->error;
+                        //     }
+                        // }
                     
 
                     //query para ver las clases
@@ -141,19 +142,17 @@ if (!isset($_GET['desde'])) {
                         <th>Creditos</th>
                         <th>Cupo</th>                        
                     </tr>";
-                            while ($row = $result->fetch_assoc()) {
-
-                                print "<tr>
-                                <td><a href='courses.php?estID=" . $row['course_id'] . "'><i class='gg-trash-empty'></i></a></td>
+                    while ($row = $result->fetch_assoc()) {
+                        print "<tr><form method='POST'>
+                            <td><button type='submit' name='delete' value='" . $row['course_id'] . "|" . $row['section_id'] . "'><i class='gg-trash-empty'></i></button></td>
                             <td><a href='editar_curso.php?estID=" . $row['course_id'] . "'>Editar</a></td>
                             <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
                             <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
                             <td>" . $row['title'] . "</td>
                             <td>" . $row['credits'] . "</td>
                             <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>
-                            
-                           </tr>";
-                            }
+                        </form></tr>";
+                    }
                             print "</table>";
                             echo "<h2 style='text-align:center'>";
 
