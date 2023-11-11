@@ -1,7 +1,7 @@
 <section class="info_section layout_padding2">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-lg-3 info_col">
+            <div class="col-md-8 col-lg-3 mx-auto info_col">
                 <div class="info_contact">
                     <h4>
                         Address
@@ -10,55 +10,47 @@
                         <a href="">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             <span>
-                                Location
+                                Carr. 653 Km. 0.8 Sector Las Dunas, Arecibo
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <span>
-                                Call +01 1234567890
+                                787-815-0000 / Fax 787-880-4972
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             <span>
-                                demo@gmail.com
+                                oficinadecomunicaciones.arecibo@upr.edu
                             </span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 info_col">
+            <div class="col-md-4 col-lg-3 info_col">
                 <div class="info_detail">
                     <h4>
                         Info
                     </h4>
                     <p>
-                        necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful
+                        Sistema de matricula de la Universidad de Puerto Rico en Arecibo
                     </p>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-2 mx-auto info_col">
+            <div class="col-md-4 col-lg-2 info_col">
                 <div class="info_link_box">
                     <h4>
                         Links
                     </h4>
                     <div class="info_links">
-                        <a class="active" href="index.html">
-                            Home
+                        <a class="active" href="courses.php">
+                            Pre-Matricula
                         </a>
-                        <a class="" href="about.html">
-                            About
+                        <a class="" href="myCourses.php">
+                            Mis Cursos
                         </a>
-                        <a class="" href="service.html">
-                            Services
-                        </a>
-                        <a class="" href="why.html">
-                            Why Us
-                        </a>
-                        <a class="" href="team.html">
-                            Team
-                        </a>
+
                     </div>
                 </div>
             </div>
