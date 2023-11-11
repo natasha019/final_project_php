@@ -134,7 +134,7 @@
                                     <label for="passsword" class="form-label mt-4">Password</label>
                                     <input type="password" class="form-control" id="password" name="pass" placeholder="Password" autocomplete="off">
                                 </div>
-                                <p>Ya tienes una cuenta? <a href="index.php">Login</a></p>
+                                <p>No tienes una cuenta? <a href="registrarse.php">Registrese</a></p>
                                 <button type="submit" name="submit" value="Entrar" class="btn btn-primary">Entrar</button>
                             </fieldset>
                         </form>';

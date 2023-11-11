@@ -60,7 +60,7 @@
                         </h3>
                         <?php
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            if ((!empty($_POST['email'])) && (!empty($_POST['pass']))) { //conectarme a ver si existe ese estudiante o admin   
+                            if (isset($_POST['submit'])) { //conectarme a ver si existe ese estudiante o admin   
                                 include_once("db_info.php");
                                 $email = $_POST['email'];
                                 $pass = $_POST['pass'];
@@ -132,7 +132,7 @@
                                     <label for="passsword" class="form-label mt-4">Password</label>
                                     <input type="password" class="form-control" id="password" name="pass" placeholder="Password" autocomplete="off" required>
                                 </div>                               
-                                <p>No tienes una cuenta? <a href="registrarse.php" >Registrese</a></p>
+                                <p>Ya tienes una cuenta? <a href="index.php" >Haz login</a></p>
                                 <button type="submit" name="submit" value="Entrar" class="btn btn-primary">Entrar</button>
                             </fieldset>
                         </form>';
