@@ -69,7 +69,7 @@
                                 $lastname = $_POST['lastname'];
                                 $password = $_POST['pass'];
 
-
+                                
                                 //query para buscar al admin en la base de datos
                                 $queryA = "SELECT * FROM admin
                                         WHERE email = ?";
@@ -100,11 +100,12 @@
                                     $queryS = "INSERT INTO student (user_name,last_name,email,student_id,password,year_of_study)
                                     VALUES (?,?,?,?,?,?)";
 
-
-                                    $stmt = $dbc->prepare($queryS);
-                                    $stmt->bind_param("sssisi", $user_name, $lastname, $email, $studentNum, $password, $studentYear);
-                                    if (!$stmt->execute()) {
-                                        throw new Exception("Error: " . $stmt->error);
+                     
+                                $stmt = $dbc->prepare($queryS);
+                                $stmt->bind_param("sssisi", $user_name, $lastname,$email, $studentNum,$password,$studentYear);
+                                if (!$stmt->execute()) 
+                                    {
+                                    throw new Exception("Error: " . $stmt->error);
                                     }
                                     header('Location: index.php');
                                 }
