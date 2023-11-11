@@ -69,7 +69,24 @@ if (!isset($_GET['desde'])) {
                     include_once("../db_info.php");
                     //query para insertar clases
 
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (isset($_POST['course_id']) && isset($_POST['section_id'])) {
+                        $course = $_POST['course_id'];
+                        $section = $_POST['section_id'];
+                    
+                        $query_eli = "DELETE FROM course 
+                                      WHERE course_id = '$course' AND section_id = '$section'";
+                    
+                        if ($dbc->query($query_eli) === TRUE) {
+                            echo "Curso eliminado correctamente";
+                        } else {
+                            echo "Error: " . $query_eli . "<br>" . $dbc->error;
+                        }
+                    
+                        $dbc->close();
+                    }
+                    
+
+
                         if (isset($_POST['course_id'])) {
                             $student_id = '000001111';
                             $course_id = $_POST['course_id'];
@@ -88,7 +105,7 @@ if (!isset($_GET['desde'])) {
                                 echo "Error: " . $sql . "<br>" . $dbc->error;
                             }
                         }
-                    }
+                    
 
                     //query para ver las clases
                     $query = "SELECT COUNT(course_id) as contador
@@ -127,7 +144,7 @@ if (!isset($_GET['desde'])) {
                             while ($row = $result->fetch_assoc()) {
 
                                 print "<tr>
-                                <td><a href='eliminar_estudiante.php?estID=" . $row['course_id'] . "'><i class='gg-trash-empty'></i></a></td>
+                                <td><a href='courses.php?estID=" . $row['course_id'] . "'><i class='gg-trash-empty'></i></a></td>
                             <td><a href='editar_curso.php?estID=" . $row['course_id'] . "'>Editar</a></td>
                             <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
                             <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
