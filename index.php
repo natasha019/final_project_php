@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>LOGIN - Pre-Matricula</title>
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="">
+    <title>Login - Pre-Matricula</title>
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
@@ -133,7 +134,7 @@
                                     <label for="passsword" class="form-label mt-4">Password</label>
                                     <input type="password" class="form-control" id="password" name="pass" placeholder="Password" autocomplete="off">
                                 </div>
-                                <p>No tienes una cuenta? <a href="registrarse.php">Registrese</a></p>
+                                <p>Ya tienes una cuenta? <a href="index.php">Login</a></p>
                                 <button type="submit" name="submit" value="Entrar" class="btn btn-primary">Entrar</button>
                             </fieldset>
                         </form>';
