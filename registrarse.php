@@ -60,16 +60,16 @@
                         </h3>
                         <?php
                         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            if (isset($_POST['submit'])) { 
+                            if (isset($_POST['submit'])) {
                                 include_once("db_info.php");
                                 $user_name = $_POST['name'];
                                 $studentNum = $_POST['studentNum'];
                                 $studentYear = $_POST['studentYear'];
                                 $email = $_POST['email'];
                                 $lastname = $_POST['lastname'];
-                                $password = $_POST['password'];
+                                $password = $_POST['pass'];
 
-                                
+
                                 //query para buscar al admin en la base de datos
                                 $queryA = "SELECT * FROM admin
                                         WHERE email = ?";
@@ -97,23 +97,22 @@
                                     echo "<p>Ya existe ese email en nuestra base de datos.</p>";
                                 } else {
                                     //query para insertar estudiantes
-                                $queryS = "INSERT INTO student (user_name,last_name,email,student_id,password,year_of_study)
-                                VALUES (?,?,?,?,?,?)";
+                                    $queryS = "INSERT INTO student (user_name,last_name,email,student_id,password,year_of_study)
+                                    VALUES (?,?,?,?,?,?)";
 
-                     
-                                $stmt = $dbc->prepare($sql);
-                                $stmt->bind_param("sssisi", $user_name, $last_name,$email, $studentNum,$password,$studentYear);
-                                if (!$stmt->execute()) 
-                                    {
-                                    throw new Exception("Error: " . $stmt->error);
+
+                                    $stmt = $dbc->prepare($queryS);
+                                    $stmt->bind_param("sssisi", $user_name, $lastname, $email, $studentNum, $password, $studentYear);
+                                    if (!$stmt->execute()) {
+                                        throw new Exception("Error: " . $stmt->error);
                                     }
-
+                                    header('Location: index.php');
                                 }
                                 $dbc->close();
                             }
                         } else // No llegó por un submit, por lo tanto hay que presentar el formulario
                         {
-                            print '<form action="index.php" method="POST">
+                            print '<form action="registrarse.php" method="POST">
                             <fieldset>
                                 <div class="form-group">
                                     <label for="name" class="form-label mt-4">Nombre</label>
