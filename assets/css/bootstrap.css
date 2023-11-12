@@ -11142,4 +11142,11 @@ a.text-dark:focus {
   }
 }
 
+.delete {
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
