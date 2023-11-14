@@ -61,7 +61,7 @@ if (!isset($_GET['desde'])) {
             <div class="container ">
                 <div class="heading_container heading_center">
                     <h2 class="mb-5">
-                        Cursos <span>Disponibles</span>
+                        Cuentas <span>Estudiantiles</span>
                     </h2>
                 </div>
                 <div>
@@ -69,25 +69,22 @@ if (!isset($_GET['desde'])) {
                     include_once("../db_info.php");
                     //query para insertar clases
 
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        if (isset($_POST['course_id'])) {
-                            $student_id = '000001111';
-                            $course_id = $_POST['course_id'];
-                            $section_id = $_POST['section_id'];
-                            $capacity = $_POST['capacity'];
+                    if (isset($_POST['change_pass'])) {
+                        
+                        $student_id = $_POST['change_pass'];
+                        echo $student_id;
+                        $pass = "pass1234";
+                        $hash = password_hash($pass, PASSWORD_DEFAULT);
 
-                            // Determine the status based on capacity
-                            $status = ($capacity > 0) ? 0 : 1;
+                        $query = "UPDATE student
+                                SET password = '$hash'
+                                where student_id = '$student_id'";
 
-                            // Insert the selected course into the database with the current timestamp
-                            $sql = "INSERT INTO enrollment (student_id, course_id, section_id, timestamp, status) 
-                            VALUES ('$student_id', '$course_id', '$section_id', NOW(), '$status')";
-                            if ($dbc->query($sql) === TRUE) {
-                                echo "Course added to the database successfully.";
-                            } else {
-                                echo "Error: " . $sql . "<br>" . $dbc->error;
-                            }
-                        }
+                            if($dbc -> query($query)===TRUE)
+                                print '<h3>Contrasenas han sido actualizadas exitosamente</h3>';
+                            else 
+                                print'<h3style="color:red;"> No se pudo actualizar la contrasena de los estudiantes ya que : <br/>'.$dbc->error.'</h3>';
+                            
                     }
 
                     //query para ver las clases
@@ -100,10 +97,8 @@ if (!isset($_GET['desde'])) {
                     $total_pags = ceil($contador / $limite);
                     $pag_actual = ceil($desde / $limite) + 1;
 
-                    $query = "SELECT DISTINCT c.course_id, c.title, s.section_id, c.credits, s.capacity
-                    FROM course c
-                    INNER JOIN section s ON s.course_id = c.course_id
-                    ORDER BY c.course_id, s.section_id";
+                    $query = "SELECT student_id,user_name,last_name,email
+                    FROM student";
 
                     try {
                         if ($result = $dbc->query($query)) {
@@ -116,24 +111,23 @@ if (!isset($_GET['desde'])) {
 
                             print " <table class='table table-striped'>";
                             print "<tr> 
+                            
                             <th></th>
-                            <th></th>
-                        <th>Codigo</th>
-                        <th>Seccion</th>                        
-                        <th>Nombre del curso</th>
-                        <th>Creditos</th>
-                        <th>Cupo</th>                        
+                        <th>Numero Estudiante</th>
+                        <th>Nombre</th>                        
+                        <th>Apellido</th>
+                        <th>Email</th>
+                                            
                     </tr>";
-                            while ($row = $result->fetch_assoc()) {
-
-                                print "<tr>
-                                <td><a href='eliminar_estudiante.php?estID=" . $row['course_id'] . "'><i class='gg-trash-empty'></i></a></td>
-                            <td><a href='editar_curso.php?estID=" . $row['course_id'] . "'>Editar</a></td>
-                            <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
-                            <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
-                            <td>" . $row['title'] . "</td>
-                            <td>" . $row['credits'] . "</td>
-                            <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>
+                    while ($row = $result->fetch_assoc()) {
+                            print "<tr><form method='POST'>
+            
+                            <td><button type='submit' name='change_pass' class='delete' value='" . $row['student_id'] . "'>Cambiar Contrasena</button></td>
+                            <td>" . $row['student_id'] . "<input type='hidden' name='student_id' value='" . $row["student_id"] . "'></td>
+                            <td>" . $row['user_name'] . "<input type='hidden' name='user_name' value='" . $row["user_name"] . "'></td>
+                            <td>" . $row['last_name'] . "</td>
+                            <td>" . $row['email'] . "</td> 
+                            
                             
                            </tr>";
                             }
@@ -141,7 +135,7 @@ if (!isset($_GET['desde'])) {
                             echo "<h2 style='text-align:center'>";
 
                             for ($i = 1; $i <= $total_pags; $i++)
-                                echo "<a  class='btn pages' href='courses.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
+                                echo "<a  class='btn pages' href='cambiar_contra.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
 
                             echo "</h2>";
                         }
