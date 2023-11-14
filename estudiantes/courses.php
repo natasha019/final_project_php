@@ -93,6 +93,7 @@ if (!isset($_GET['desde'])) {
                     $query = "SELECT COUNT(course_id) as contador FROM course";
                     $result = $dbc->query($query);
                     $row = $result->fetch_assoc();
+                    //paginacion
                     $contador = $row['contador'];
                     $total_pags = ceil($contador / $limite);
                     $pag_actual = ceil($desde / $limite) + 1;

@@ -23,7 +23,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ">
                         <li class="nav-item ">
-                            <a class="nav-link" href="courses.php">Secciones <span class="sr-only">(current)</span> </a>
+                            <a class="nav-link" href="cursos.php">Cursos <span class="sr-only">(current)</span> </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="secciones.php">Secciones <span class="sr-only">(current)</span> </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="matricula.php"> Matricula</a>

@@ -97,7 +97,7 @@
                                         $_SESSION['name'] = $row['user_name'] . ' ' . $row['user_lastname'];
                                         $_SESSION['email'] = $row['email'];
                                         echo "<p>password correcto</p>";
-                                        header('Location: admin/courses.php');
+                                        header('Location: admin/cursos.php');
                                     } else
                                         echo "<p>password incorrecto</p>";
 
@@ -112,7 +112,7 @@
                                         $_SESSION['nombre'] = $row['user_name'] . ' ' . $row['user_lastname'];
                                         $_SESSION['email'] = $row['email'];
                                         echo "<p>password correcto</p>";
-                                        header('Location: estudiantes/courses.php');
+                                        header('Location: estudiantes/cursos.php');
                                     } else
                                         echo "<p>password incorrecto</p>";
                                 } else {
