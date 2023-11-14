@@ -62,7 +62,7 @@ if (!isset($_GET['desde'])) {
             <div class="container ">
                 <div class="heading_container heading_center">
                     <h2 class="mb-5">
-                        Cursos <span>Disponibles</span>
+                        Secciones <span>Disponibles</span>
                     </h2>
                 </div>
                 <div>
