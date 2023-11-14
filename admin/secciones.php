@@ -158,7 +158,7 @@ if (!isset($_GET['desde'])) {
                             while ($row = $result->fetch_assoc()) {
                                 print "<tr><form method='POST'>
                             <td><button type='submit' name='delete' class='delete' value='" . $row['course_id'] . "|" . $row['section_id'] . "'><i class='gg-trash-empty'></i></button></td>
-                            <td><a href='editar_seccion.php?crse_id=" . $row['course_id'] . "&section_id=" . $row['section_id'] . "'>Editar</a></td>
+                            <td><a href='editar_seccion.php?course_id=" . $row['course_id'] . "&section_id=" . $row['section_id'] . "'>Editar</a></td>
                             <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
                             <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
                             <td>" . $row['title'] . "</td>
