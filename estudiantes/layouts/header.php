@@ -10,7 +10,7 @@
     <header class="header_section">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" href="../courses.php">
+                <a class="navbar-brand" href="cursos.php">
                     <span>
                         Pre-Matricula <span style="color:#00bbf0;">UPRA</span>
                     </span>
@@ -30,12 +30,32 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                            <form method="post" action="layouts/header.php">
+                                <input type="hidden" name="signout" value="1">
+                                <button type="submit" class="btn btn-link">
+                                    Logout &nbsp;<i class="fa fa-user" aria-hidden="true"></i>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
+
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['signout'])) {
+            session_start();
+            $_SESSION = array(); // Limpiar todas las variables de sesión
+            session_destroy(); // Destruir la sesión
+
+            // Redirigir al usuario al inicio de sesión
+            header("Location: ../../index.php");
+            exit;
+        }
+    }
+    ?>
+
     <!-- end header section -->
 </div>

@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['authenticated'])) {
+    header('Location: ../index.php');
+}
+
 
 $limite = 5;
 
@@ -71,7 +75,7 @@ if (!isset($_GET['desde'])) {
                     //query para insertar clases
                     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
                         list($course_id, $section_id) = explode("|", $_POST['delete']);
-                    
+
                         // Eliminar los cursos que se relacionan con la clase
                         $query_delete_courses = "DELETE FROM course WHERE course_id = '$course_id'";
                         if ($dbc->query($query_delete_courses) === TRUE) {
@@ -79,7 +83,7 @@ if (!isset($_GET['desde'])) {
                         } else {
                             echo "Error: " . $query_delete_courses . "<br>" . $dbc->error;
                         }
-                    
+
                         // Eliminacion de la seccion 
                         $query_delete_section = "DELETE FROM section WHERE section_id = '$section_id'";
                         if ($dbc->query($query_delete_section) === TRUE) {
@@ -88,7 +92,7 @@ if (!isset($_GET['desde'])) {
                             echo "Error: " . $query_delete_section . "<br>" . $dbc->error;
                         }
                     }
-                    
+
 
 
                     //query para crear secciones
