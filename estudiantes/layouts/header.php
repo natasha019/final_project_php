@@ -23,10 +23,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  ">
                         <li class="nav-item ">
-                            <a class="nav-link" href="courses.php">Pre-Matricula <span class="sr-only">(current)</span> </a>
+                            <a class="nav-link" href="cursos.php">Pre-Matricula <span class="sr-only">(current)</span> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="myCourses.php"> Mis Cursos</a>
+                            <a class="nav-link" href="mis_cursos.php"> Mis Cursos</a>
                         </li>
 
                         <li class="nav-item">

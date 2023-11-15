@@ -97,7 +97,7 @@ if (!isset($_GET['desde'])) {
                                 throw new Exception("Error: " . $stmt1->error);
                             } else {
                                 print '<div class="my-5 d-flex" >
-                                <h3>El curso fue creado. <a href="cursos.php" class="d-flex ">Volver a Cursos&nbsp;&nbsp;</a></h3>                                
+                                <h3>Se realizo maticula. <a href="cursos.php" class="d-flex ">Volver a Cursos&nbsp;&nbsp;</a></h3>                                
                                 </div>';
                             }
                         }

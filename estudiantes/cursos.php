@@ -70,10 +70,11 @@ if (!isset($_GET['desde'])) {
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (isset($_POST['course_id'])) {
-                            $student_id = '840194867';
+                            $student_id = $_SESSION['student_num'];
                             $course_id = $_POST['course_id'];
                             $section_id = $_POST['section_id'];
                             $capacity = $_POST['capacity'];
+
 
                             // determinamos el estado dependiendo de la capacidad
                             $status = ($capacity > 0) ? 0 : 1;
@@ -118,6 +119,7 @@ if (!isset($_GET['desde'])) {
 
                     try {
                         if ($result = $dbc->query($query)) {
+
                             print "<div class='row d-flex justify-content-end pr-3'>
                             <div class='col-'>
                                 <form class='d-flex' method='GET' action='courses.php'>

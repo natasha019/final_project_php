@@ -54,13 +54,12 @@
                     <?php
                     include_once("../db_info.php");
                     //query para insertar clases
+                    $student_id = $_SESSION['student_num'];
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (isset($_POST['course_id'])) {
-                            $student_id = '840194867';
                             $course_id = $_POST['course_id'];
                             $section_id = $_POST['section_id'];
-
 
 
                             // Borrar una clase de mis cursos  
@@ -72,8 +71,7 @@
                             }
                         }
                     }
-                    // chequeamos que el query de búsqueda esté disponible
-                    $student_id = '840194867';
+
 
                     // Check if a search query for course_id is provided
                     if (isset($_GET['query_busqueda'])) {

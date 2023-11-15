@@ -29,12 +29,14 @@
                             <a class="nav-link" href="secciones.php">Secciones <span class="sr-only">(current)</span> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="matricula.php"> Matricula</a>
+                            <a class="nav-link" href="reportes.php"> Reportes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="matricula.php"> Cambiar Password</a>
+                            <a class="nav-link" href="cambiar_contra.php"> Cambiar Password</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="btn btn-primary" href="matricula.php">Correr Pre-matricula</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Logout</a>
                         </li>
