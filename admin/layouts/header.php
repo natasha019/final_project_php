@@ -29,7 +29,7 @@
                             <a class="nav-link" href="secciones.php">Secciones <span class="sr-only">(current)</span> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="reportes.php"> Reportes</a>
+                            <a class="nav-link" href="reporte_estudiantes.php"> Reportes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="cambiar_contra.php"> Cambiar Password</a>
