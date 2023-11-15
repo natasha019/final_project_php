@@ -56,48 +56,47 @@ $titulo = "Estudiantes de Honor UPRA";
                 </div>
                 <div>
                     <?php
-                    include_once("db_info.php");
+                    include_once("../db_info.php");
 
-                    if (isset($_GET['estID']) && is_numeric($_GET['estID'])) //vino del index
+                    if (isset($_GET['matricula'])) //vino del index
                     {
-                        $query = "SELECT *
-            FROM estudiantes
-            WHERE estID={$_GET['estID']}";
-                        try {
-                            if ($result = $dbc->query($query)) {
-                                if ($result->num_rows == 1) {
-                                    $row = $result->fetch_assoc();
-                                    print '<form action="eliminar_estudiante.php" method="post" >
-                        <h3> Estas seguro que desea eliminar al siguiente estudiante de honor:
-                        ' . $row['nombre'] . ' ' . $row['apellidoP'] . ' ' . $row['apellidoM'] . ';
-                        ' . $row['numEst'] . '?</h3>';
+                        print '<form action="matricula.php" method="post" >
+                        <h3> Estas seguro que desea correr la pre-matricla?</h3>';
 
-                                    print '<input type="hidden" name="estID" value="' . $_GET['estID'] . '"/>';
-                                    print '<div style="text-align:center;">
-                                    <input type="submit" name="submit" value="Eliminar Estudiante"/>
+                        print '<input type="hidden" name="matricula" value="true"/>';
+                        print '<div style="text-align:center;">
+                                <input type="submit" name="submit" value="Correr pre-matricula"/>
                                 </div> </form>';
-                                } else {
-                                    print '<h3 style="color:red;" >Error, el estudiante no se encontro en la tabla</h3>';
-                                }
-                            }
-                        } catch (Exception $e) {
-                            print '<h3 style="color:red;" >Error en el query:' . $dbc->error . '</h3>';
-                        }
-                    } elseif (isset($_POST['estID']) && is_numeric($_POST['estID'])) //vino del form
+                    } elseif (isset($_POST['matricula']) && $_POST['matricula'] == "true") //vino del form
                     {
-                        $query = "DELETE FROM estudiantes WHERE estID={$_POST['estID']} LIMIT 1";
-                        if ($dbc->query($query) === TRUE)
-                            echo '<h3 class="centro"> El record del estudiante ha sido eliminado con exito.</h3>';
-                        else
-                            echo '<h3 class="centro">No se pudo eliminar al estudiante porque: <br/>' . $dbc->error . '</h3>';
+                        $queryGetSections = "SELECT DISTINCT e.course_id, e.section_id, s.capacity
+                                             FROM enrollment e
+                                             JOIN section s ON e.course_id = s.course_id";
+                        $resultCourses = $dbc->query($queryGetSections);
+                        echo var_dump($resultCourses);
+
+                        while ($row = $resultCourses->fetch_assoc()) {
+                            $queryUpdate = "UPDATE enrollment
+                            SET status = 1
+                            WHERE course_id = ? AND section_id = ? AND status = 0
+                            ORDER BY timestamp ASC
+                            LIMIT ?";
+
+                            $stmt = $dbc->prepare($queryUpdate);
+                            $stmt->bind_param("ssi", $row['course_id'], $row['section_id'], $row['capacity']);
+                            $stmt->execute();
+                            //ejecuta el statement
+                            // if ($stmt->execute() === TRUE)
+                            //     print '<h3>Ha sido actualizado exitosamente.</h3>';
+                            // else
+                            //     print '<h3 style="color:red;">No se pudo actualizar porque:<br />' . $stmt->error . '</h3>';
+                        }
                     } else {
-                        echo '<h3 class="centro" style="color:red;">Esta pagina ha sido accedido con error.</h3>';
                         $dbc->close();
+                        header('Location: admin/cursos.php');
                     }
 
                     ?>
-
-
                 </div>
             </div>
     </section>

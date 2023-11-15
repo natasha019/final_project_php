@@ -35,7 +35,7 @@
                             <a class="nav-link" href="cambiar_contra.php"> Cambiar Password</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-primary" href="matricula.php">Correr Pre-matricula</a>
+                            <a class="btn btn-primary" href="matricula.php?matricula=false">Correr Pre-matricula</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Logout</a>
