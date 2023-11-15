@@ -77,22 +77,40 @@ $titulo = "Estudiantes de Honor UPRA";
                                              FROM enrollment e
                                              JOIN section s ON e.course_id = s.course_id";
                         $resultCourses = $dbc->query($queryGetSections);
-                        echo var_dump($resultCourses);
 
                         while ($row = $resultCourses->fetch_assoc()) {
-                            $queryUpdate = "UPDATE enrollment
+                            //matricular
+                            $queryUpdateM = "UPDATE enrollment
                             SET status = 1
                             WHERE course_id = ? AND section_id = ? AND status = 0
                             ORDER BY timestamp ASC
                             LIMIT ?";
 
-                            $stmt = $dbc->prepare($queryUpdate);
+                            $stmt = $dbc->prepare($queryUpdateM);
                             $stmt->bind_param("ssi", $row['course_id'], $row['section_id'], $row['capacity']);
                             $stmt->execute();
+<<<<<<< Updated upstream
+=======
+                        }
+
+                        $queryGetSections = "SELECT DISTINCT e.course_id, e.section_id, s.capacity
+                        FROM enrollment e
+                        JOIN section s ON e.course_id = s.course_id";
+                        $resultCourses = $dbc->query($queryGetSections);
+                        while ($row = $resultCourses->fetch_assoc()) {
+                            //denegar
+                            $queryUpdateD = "UPDATE enrollment
+                            SET status = 2
+                            WHERE course_id = ? AND section_id = ? AND status = 0";
+
+                            $stmt2 = $dbc->prepare($queryUpdateD);
+                            $stmt2->bind_param("ss", $row['course_id'], $row['section_id']);
+                            $stmt2->execute();
+>>>>>>> Stashed changes
                         }
                     } else {
                         $dbc->close();
-                        header('Location: admin/cursos.php');
+                        //header('Location: admin/cursos.php');
                     }
 
                     ?>

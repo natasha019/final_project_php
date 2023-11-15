@@ -135,7 +135,6 @@ if (!isset($_GET['desde'])) {
                             print " <table class='table table-striped'>";
                             print "<tr> 
                                 <th></th>
-                                <th>Codigo</th>
                                 <th>Seccion</th>                        
                                 <th>Nombre del curso</th>
                                 <th>Creditos</th>
@@ -144,8 +143,8 @@ if (!isset($_GET['desde'])) {
                             while ($row = $result->fetch_assoc()) {
                                 print "<tr><form method='POST'>
                                 <td><input type='submit' value='Add Course'></td>
-                                <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
-                                <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
+                                <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
+                               
                                 <td>" . $row['title'] . "</td>
                                 <td>" . $row['credits'] . "</td>
                                 <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>
