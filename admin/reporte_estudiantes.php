@@ -81,7 +81,8 @@ if (!isset($_GET['desde'])) {
                     $pag_actual = ceil($desde / $limite) + 1;
 
                     $query = "SELECT distinct student_id, course_id, section_id
-                    FROM enrollment                  
+                    FROM enrollment
+                    where status = 1            
                     ORDER BY student_id";
 
                     try {
