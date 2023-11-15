@@ -70,20 +70,25 @@ if (!isset($_GET['desde'])) {
                     include_once("../db_info.php");
                     //query para insertar clases
                     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
-                        //esto lo hice con chat pq cuando le daba al boton como no tenia un name como tal pues boom
-                        // yo dije pero pq no me funciona esto xd y era el name ese que faltaba
-                        //pero esto divide los valores del post
                         list($course_id, $section_id) = explode("|", $_POST['delete']);
-
-                        $query_eli = "DELETE FROM section 
-                                      WHERE course_id = '$course_id' AND section_id = '$section_id'";
-
-                        if ($dbc->query($query_eli) === TRUE) {
-                            echo "Curso eliminado correctamente";
+                    
+                        // Eliminar los cursos que se relacionan con la clase
+                        $query_delete_courses = "DELETE FROM course WHERE course_id = '$course_id'";
+                        if ($dbc->query($query_delete_courses) === TRUE) {
+                            echo "Courses associated with the section deleted successfully";
                         } else {
-                            echo "Error: " . $query_eli . "<br>" . $dbc->error;
+                            echo "Error: " . $query_delete_courses . "<br>" . $dbc->error;
+                        }
+                    
+                        // Eliminacion de la seccion 
+                        $query_delete_section = "DELETE FROM section WHERE section_id = '$section_id'";
+                        if ($dbc->query($query_delete_section) === TRUE) {
+                            echo "Section deleted successfully";
+                        } else {
+                            echo "Error: " . $query_delete_section . "<br>" . $dbc->error;
                         }
                     }
+                    
 
 
                     //query para crear secciones
