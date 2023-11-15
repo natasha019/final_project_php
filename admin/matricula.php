@@ -89,11 +89,6 @@ $titulo = "Estudiantes de Honor UPRA";
                             $stmt = $dbc->prepare($queryUpdate);
                             $stmt->bind_param("ssi", $row['course_id'], $row['section_id'], $row['capacity']);
                             $stmt->execute();
-                            //ejecuta el statement
-                            // if ($stmt->execute() === TRUE)
-                            //     print '<h3>Ha sido actualizado exitosamente.</h3>';
-                            // else
-                            //     print '<h3 style="color:red;">No se pudo actualizar porque:<br />' . $stmt->error . '</h3>';
                         }
                     } else {
                         $dbc->close();
