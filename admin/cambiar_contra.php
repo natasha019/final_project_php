@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['authenticated'])) {
+    header('Location: ../index.php');
+}
 
 $limite = 5;
 
@@ -70,7 +73,7 @@ if (!isset($_GET['desde'])) {
                     //query para insertar clases
 
                     if (isset($_POST['change_pass'])) {
-                        
+
                         $student_id = $_POST['change_pass'];
                         echo $student_id;
                         $pass = "pass1234";
@@ -80,11 +83,10 @@ if (!isset($_GET['desde'])) {
                                 SET password = '$hash'
                                 where student_id = '$student_id'";
 
-                            if($dbc -> query($query)===TRUE)
-                                print '<h3>Contrasenas han sido actualizadas exitosamente</h3>';
-                            else 
-                                print'<h3style="color:red;"> No se pudo actualizar la contrasena de los estudiantes ya que : <br/>'.$dbc->error.'</h3>';
-                            
+                        if ($dbc->query($query) === TRUE)
+                            print '<h3>Contrasenas han sido actualizadas exitosamente</h3>';
+                        else
+                            print '<h3style="color:red;"> No se pudo actualizar la contrasena de los estudiantes ya que : <br/>' . $dbc->error . '</h3>';
                     }
 
                     //query para ver las clases
@@ -119,8 +121,8 @@ if (!isset($_GET['desde'])) {
                         <th>Email</th>
                                             
                     </tr>";
-                    while ($row = $result->fetch_assoc()) {
-                            print "<tr><form method='POST'>
+                            while ($row = $result->fetch_assoc()) {
+                                print "<tr><form method='POST'>
             
                             <td><button type='submit' name='change_pass' class='delete' value='" . $row['student_id'] . "'>Cambiar Contrasena</button></td>
                             <td>" . $row['student_id'] . "<input type='hidden' name='student_id' value='" . $row["student_id"] . "'></td>
