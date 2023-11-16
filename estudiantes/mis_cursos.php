@@ -111,7 +111,8 @@ if (!isset($_SESSION['authenticated'])) {
                         <th>Codigo</th>
                         <th>Seccion</th>                        
                         <th>Nombre del curso</th>
-                        <th>Creditos</th>                     
+                        <th>Creditos</th> 
+                        <th>Status</th>                    
                     </tr>";
                             while ($row = $result->fetch_assoc()) {
 
@@ -121,6 +122,7 @@ if (!isset($_SESSION['authenticated'])) {
                             <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
                             <td>" . $row['title'] . "</td>
                             <td>" . $row['credits'] . "</td>
+                            <td>" . $row['status'] . "</td>
                             
                             </form></tr>";
                             }
