@@ -120,7 +120,15 @@ if (!isset($_SESSION['authenticated'])) {
                             <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>                               
                             <td>" . $row['title'] . "</td>
                             <td>" . $row['credits'] . "</td>
-                            <td>" . $row['status'] . "</td>
+                            <td>";
+                                if ($row['status'] == 0)
+                                    print "Pendiente";
+                                elseif ($row['status'] == 1)
+                                    print "Matriculado";
+                                else
+                                    print "Cancelado por cupo";
+
+                                print "</td>
                             
                             </form></tr>";
                             }
