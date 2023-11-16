@@ -105,10 +105,9 @@ if (!isset($_SESSION['authenticated'])) {
                           </div>
                           </div>";
 
-                            print "<table class='table table-striped mb-5'>";
-                            print "<tr> 
+                            print "<table class='table table-striped mb-5'>
+                            <tr> 
                             <th></th>
-                        <th>Codigo</th>
                         <th>Seccion</th>                        
                         <th>Nombre del curso</th>
                         <th>Creditos</th> 
@@ -118,8 +117,7 @@ if (!isset($_SESSION['authenticated'])) {
 
                                 print "<tr><form method='POST'>
                             <td><input type='submit' value='Eliminar'></td>
-                            <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
-                            <td>" . $row['section_id'] . "<input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
+                            <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>                               
                             <td>" . $row['title'] . "</td>
                             <td>" . $row['credits'] . "</td>
                             <td>" . $row['status'] . "</td>

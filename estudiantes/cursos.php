@@ -70,10 +70,9 @@ if (!isset($_GET['desde'])) {
                     <?php
                     include_once("../db_info.php");
                     //query para insertar clases
-
+                    $student_id = $_SESSION['student_num'];
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (isset($_POST['course_id'])) {
-                            $student_id = $_SESSION['student_num'];
                             $course_id = $_POST['course_id'];
                             $section_id = $_POST['section_id'];
                             $capacity = $_POST['capacity'];
@@ -101,6 +100,27 @@ if (!isset($_GET['desde'])) {
                     $contador = $row['contador'];
                     $total_pags = ceil($contador / $limite);
                     $pag_actual = ceil($desde / $limite) + 1;
+
+                    //selecciona los cursos en los que el estudiante se prematriculo
+                    $queryE = "SELECT course_id FROM enrollment WHERE student_id = ?";
+                    $stmt = $dbc->prepare($queryE);
+                    $stmt->bind_param("s", $student_id);
+                    if (!$stmt->execute()) {
+                        die('Error: ' . $stmt->error);
+                    }
+
+                    $result = $stmt->get_result();
+                    //$row = $result->fetch_assoc();
+                    $coursesEnrolled = [];
+                    try {
+                        while ($row = $result->fetch_assoc()) {
+                            array_push($coursesEnrolled, $row['course_id']);
+                        }
+                    } catch (Exception $e) {
+                        print "<h3 style=\"color:red\">Error en el query: " . $dbc->error . "</h3>";
+                    }
+
+
 
                     // chequeamos que el query de búsqueda esté disponible
                     if (isset($_GET['query_busqueda'])) {
@@ -142,9 +162,12 @@ if (!isset($_GET['desde'])) {
                             </tr>";
                             while ($row = $result->fetch_assoc()) {
                                 print "<tr><form method='POST'>
-                                <td><input type='submit' value='Add Course'></td>
-                                <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>
-                               
+                                <td><input type='submit' value='Add Course'";
+                                if (in_array($row['course_id'], $coursesEnrolled)) {
+                                    print "disabled";
+                                }
+                                print "></td>
+                                <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>                               
                                 <td>" . $row['title'] . "</td>
                                 <td>" . $row['credits'] . "</td>
                                 <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>

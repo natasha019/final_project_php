@@ -89,8 +89,6 @@ $titulo = "Estudiantes de Honor UPRA";
                             $stmt = $dbc->prepare($queryUpdateM);
                             $stmt->bind_param("ssi", $row['course_id'], $row['section_id'], $row['capacity']);
                             $stmt->execute();
-<<<<<<< Updated upstream
-=======
                         }
 
                         $queryGetSections = "SELECT DISTINCT e.course_id, e.section_id, s.capacity
@@ -106,7 +104,6 @@ $titulo = "Estudiantes de Honor UPRA";
                             $stmt2 = $dbc->prepare($queryUpdateD);
                             $stmt2->bind_param("ss", $row['course_id'], $row['section_id']);
                             $stmt2->execute();
->>>>>>> Stashed changes
                         }
                     } else {
                         $dbc->close();
