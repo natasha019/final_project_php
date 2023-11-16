@@ -91,9 +91,9 @@
                                 if ($resultA->num_rows == 1) {
                                     $row = $resultA->fetch_assoc();
                                     echo("password de db");
-                                    echo($row[password]);
+                                   $hashed = $row['password'];
                                     //  Redirigir el usuario a la página correspondiente
-                                    if (password_verify($pass, $row['password'])) {
+                                    if (password_verify($pass, $hashed)) {
                                         
                                     // if ($pass === $row['password']) {
                                         session_start();
@@ -111,8 +111,8 @@
                                     //si encuentra al estudiante      
                                  }elseif ($resultS->num_rows == 1) {
                                     $row = $resultS->fetch_assoc();
-
-                                    if (password_verify($pass, $row['password'])) {
+                                    $hashed = $row['password'];
+                                    if (password_verify($pass, $hashed)) {
                                     // if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['student_num'] = $row['student_id'];
