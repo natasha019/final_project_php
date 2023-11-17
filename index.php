@@ -64,7 +64,9 @@
                                 include_once("db_info.php");
                                 $email = $_POST['email'];
                                 $pass = $_POST['pass'];
-                                echo($pass);
+
+                                $hashedSubmittedPassword = password_hash($pass, PASSWORD_DEFAULT);
+                              
 
                                 //query para buscar al admin en la base de datos
                                 echo $email;
@@ -91,9 +93,11 @@
                                 if ($resultA->num_rows == 1) {
                                     $row = $resultA->fetch_assoc();
                                     echo("password de db");
-                                   $hashed = $row['password'];
+                                   
+                                   echo "Stored Hashed Password: " . $row['password'] . "<br>";
+
                                     //  Redirigir el usuario a la página correspondiente
-                                    if (password_verify($pass, $hashed)) {
+                                    if (password_verify($pass, $row['password'])) {
                                         
                                     // if ($pass === $row['password']) {
                                         session_start();
@@ -111,8 +115,9 @@
                                     //si encuentra al estudiante      
                                  }elseif ($resultS->num_rows == 1) {
                                     $row = $resultS->fetch_assoc();
-                                    $hashed = $row['password'];
-                                    if (password_verify($pass, $hashed)) {
+                                    
+                                    
+                                    if (password_verify($pass, $row['password'])) {
                                     // if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['student_num'] = $row['student_id'];
