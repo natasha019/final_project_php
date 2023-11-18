@@ -64,7 +64,9 @@
                                 include_once("db_info.php");
                                 $email = $_POST['email'];
                                 $pass = $_POST['pass'];
-                                echo ($pass);
+
+                                $hashedSubmittedPassword = password_hash($pass, PASSWORD_DEFAULT);
+
 
                                 //query para buscar al admin en la base de datos
                                 echo $email;
@@ -91,7 +93,9 @@
                                 if ($resultA->num_rows == 1) {
                                     $row = $resultA->fetch_assoc();
                                     echo ("password de db");
-                                    //echo($row[password]);
+
+                                    echo "Stored Hashed Password: " . $row['password'] . "<br>";
+
                                     //  Redirigir el usuario a la página correspondiente
                                     //if (password_verify($pass, $row['password'])) {
 
@@ -112,8 +116,9 @@
                                 } elseif ($resultS->num_rows == 1) {
                                     $row = $resultS->fetch_assoc();
 
-                                    //if (password_verify($pass, $row['password'])) {
-                                    if ($pass === $row['password']) {
+
+                                    if (password_verify($pass, $row['password'])) {
+                                        // if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['student_num'] = $row['student_id'];
                                         $_SESSION['nombre'] = $row['user_name'] . ' ' . $row['user_lastname'];

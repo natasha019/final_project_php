@@ -67,7 +67,7 @@
                                 $studentYear = $_POST['studentYear'];
                                 $email = $_POST['email'];
                                 $lastname = $_POST['lastname'];
-                                $password = $_POST['pass'];
+                                $password = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
                                 
                                 //query para buscar al admin en la base de datos
