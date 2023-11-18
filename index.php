@@ -64,7 +64,7 @@
                                 include_once("db_info.php");
                                 $email = $_POST['email'];
                                 $pass = $_POST['pass'];
-                                echo($pass);
+                                echo ($pass);
 
                                 //query para buscar al admin en la base de datos
                                 echo $email;
@@ -90,12 +90,12 @@
                                 //si encuentra al admin
                                 if ($resultA->num_rows == 1) {
                                     $row = $resultA->fetch_assoc();
-                                    echo("password de db");
-                                    echo($row[password]);
+                                    echo ("password de db");
+                                    //echo($row[password]);
                                     //  Redirigir el usuario a la página correspondiente
-                                    if (password_verify($pass, $row['password'])) {
-                                        
-                                    // if ($pass === $row['password']) {
+                                    //if (password_verify($pass, $row['password'])) {
+
+                                    if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['name'] = $row['user_name'] . ' ' . $row['user_lastname'];
                                         $_SESSION['email'] = $row['email'];
@@ -103,17 +103,17 @@
                                         echo "<p>password correcto</p>";
                                         $_SESSION['authenticated'] = 'true';
                                         header('Location: admin/cursos.php');
-                                    } else{
+                                    } else {
                                         echo "<p>password incorrecto</p>";
                                     }
-                                        
+
 
                                     //si encuentra al estudiante      
-                                 }elseif ($resultS->num_rows == 1) {
+                                } elseif ($resultS->num_rows == 1) {
                                     $row = $resultS->fetch_assoc();
 
-                                    if (password_verify($pass, $row['password'])) {
-                                    // if ($pass === $row['password']) {
+                                    //if (password_verify($pass, $row['password'])) {
+                                    if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['student_num'] = $row['student_id'];
                                         $_SESSION['nombre'] = $row['user_name'] . ' ' . $row['user_lastname'];
@@ -121,12 +121,11 @@
                                         echo "<p>password correcto</p>";
                                         $_SESSION['authenticated'] = 'true';
                                         header('Location: estudiantes/cursos.php');
-                                     }  else{
+                                    } else {
                                         //Incorrect password for student
-                                       echo "<p>password incorrecto</p>";  
-                                     }
-                                       
-                             } else {
+                                        echo "<p>password incorrecto</p>";
+                                    }
+                                } else {
                                     print '<h3>Su email no concuerda con nuestros archivos!<br />Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';
                                 }
                                 $dbc->close();
