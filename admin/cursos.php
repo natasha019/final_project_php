@@ -73,7 +73,7 @@ if (!isset($_GET['desde'])) {
                     include_once("../db_info.php");
                     //query para insertar clases
                     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
-                        
+
                         $course_id = $_POST['course_id'];
 
                         $query_eli = "DELETE FROM course 
@@ -125,7 +125,7 @@ if (!isset($_GET['desde'])) {
                             <td><button type='submit' name='delete' class='delete' value='" . $row['course_id'] . "'><i class='gg-trash-empty'></i></button></td>
                             <td><a href='editar_curso.php?course_id=" . $row['course_id'] . "'>Editar</a></td>
                             <td>" . $row['course_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'></td>
-                            <td>" . $row['title'] . "</td>
+                            <td>" . mb_strtoupper($row['title']) . "</td>
                             <td>" . $row['credits'] . "</td>
                         </form></tr>";
                             }
