@@ -65,7 +65,7 @@
                                 $email = $_POST['email'];
                                 $pass = $_POST['pass'];
 
-                                $hashedSubmittedPassword = password_hash($pass, PASSWORD_DEFAULT);
+                                //$hashedSubmittedPassword = password_hash($pass, PASSWORD_DEFAULT);
 
 
                                 //query para buscar al admin en la base de datos
@@ -92,14 +92,14 @@
                                 //si encuentra al admin
                                 if ($resultA->num_rows == 1) {
                                     $row = $resultA->fetch_assoc();
-                                    echo ("password de db");
+                                    //echo ("password de db");
 
-                                    echo "Stored Hashed Password: " . $row['password'] . "<br>";
+                                    //echo "Stored Hashed Password: " . $row['password'] . "<br>";
 
                                     //  Redirigir el usuario a la página correspondiente
-                                    //if (password_verify($pass, $row['password'])) {
+                                    if (password_verify($pass, $row['password'])) {
 
-                                    if ($pass === $row['password']) {
+                                        //if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['name'] = $row['user_name'] . ' ' . $row['user_lastname'];
                                         $_SESSION['email'] = $row['email'];
@@ -118,7 +118,7 @@
 
 
                                     if (password_verify($pass, $row['password'])) {
-                                        // if ($pass === $row['password']) {
+                                        //if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['student_num'] = $row['student_id'];
                                         $_SESSION['nombre'] = $row['user_name'] . ' ' . $row['user_lastname'];
@@ -128,7 +128,9 @@
                                         header('Location: estudiantes/cursos.php');
                                     } else {
                                         //Incorrect password for student
-                                        echo "<p>password incorrecto</p>";
+                                        echo "<p>Password Incorrecto</p>";
+                                        echo $pass;
+                                        echo $row['password'];
                                     }
                                 } else {
                                     print '<h3>Su email no concuerda con nuestros archivos!<br />Vuelva a intentarlo...<a href="index.php"> Login </a></h3>';

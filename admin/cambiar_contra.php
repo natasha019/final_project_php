@@ -76,7 +76,7 @@ if (!isset($_GET['desde'])) {
 
                         $student_id = $_POST['change_pass'];
                         echo $student_id;
-                        $pass = "pass1234";
+                        $pass = "pass123";
                         $hash = password_hash($pass, PASSWORD_DEFAULT);
 
                         $query = "UPDATE student
@@ -89,7 +89,7 @@ if (!isset($_GET['desde'])) {
                             print '<h3style="color:red;"> No se pudo actualizar la contrasena de los estudiantes ya que : <br/>' . $dbc->error . '</h3>';
                     }
 
-                    //query para ver las clases
+
                     $query = "SELECT COUNT(course_id) as contador
                      FROM course";
 
@@ -101,6 +101,8 @@ if (!isset($_GET['desde'])) {
 
                     $query = "SELECT student_id,user_name,last_name,email
                     FROM student";
+                    $queryA = "SELECT user_name,user_lastname,email
+                    FROM admin";
 
                     try {
                         if ($result = $dbc->query($query)) {
@@ -134,12 +136,39 @@ if (!isset($_GET['desde'])) {
                            </tr>";
                             }
                             print "</table>";
-                            echo "<h2 style='text-align:center'>";
+                        }
 
-                            for ($i = 1; $i <= $total_pags; $i++)
-                                echo "<a  class='btn pages' href='cambiar_contra.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
+                        if ($result = $dbc->query($queryA)) {
+                            print   "<div class='heading_container heading_center'>
+                            <h2 class='mb-5 mt-5'>
+                                Cuentas <span>Administradores</span>
+                            </h2>
+                        </div>
+                            <div class='row d-flex justify-content-end pr-3'>
+                          </form></div>
+                          </div>";
 
-                            echo "</h2>";
+                            print " <table class='table table-striped'>";
+                            print "<tr> 
+                            
+                            <th></th>
+                        <th>Nombre</th>                     
+                        <th>Apellido</th>
+                        <th>Email</th>
+                                            
+                    </tr>";
+                            while ($row = $result->fetch_assoc()) {
+                                print "<tr><form method='POST'>
+            
+                            <td><button type='submit' name='change_pass' class='delete' value='" . $row['email'] . "'>Cambiar Contrasena</button></td>
+                            <td>" . $row['user_name'] . "<input type='hidden' name='user_name' value='" . $row["user_name"] . "'></td>
+                            <td>" . $row['user_lastname'] . "</td>
+                            <td>" . $row['email'] . "</td> 
+                            
+                            
+                           </tr>";
+                            }
+                            print "</table>";
                         }
                     } catch (Exception $e) {
                         print "<h3 style=\"color:red\">Error en el query: " . $dbc->error . "</h3>";
