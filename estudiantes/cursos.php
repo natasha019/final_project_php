@@ -177,7 +177,7 @@ if (!isset($_GET['desde'])) {
                             echo "<h2 style='text-align:center'>";
 
                             for ($i = 1; $i <= $total_pags; $i++)
-                                echo "<a  class='btn pages' href='courses.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
+                                echo "<a  class='btn pages' href='cursos.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
 
                             echo "</h2>";
                         }
