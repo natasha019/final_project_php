@@ -99,7 +99,7 @@
                                     //  Redirigir el usuario a la página correspondiente
                                     if (password_verify($pass, $row['password'])) {
 
-                                        //if ($pass === $row['password']) {
+                                        // if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['name'] = $row['user_name'] . ' ' . $row['user_lastname'];
                                         $_SESSION['email'] = $row['email'];

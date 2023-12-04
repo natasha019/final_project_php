@@ -72,9 +72,9 @@ if (!isset($_GET['desde'])) {
                     include_once("../db_info.php");
                     //query para insertar clases
 
-                    if (isset($_POST['change_pass'])) {
+                    if (isset($_POST['change_passu'])) {
 
-                        $student_id = $_POST['change_pass'];
+                        $student_id = $_POST['change_passu'];
                         echo $student_id;
                         $pass = "pass123";
                         $hash = password_hash($pass, PASSWORD_DEFAULT);
@@ -87,8 +87,22 @@ if (!isset($_GET['desde'])) {
                             print '<h3>Contrasenas han sido actualizadas exitosamente</h3>';
                         else
                             print '<h3style="color:red;"> No se pudo actualizar la contrasena de los estudiantes ya que : <br/>' . $dbc->error . '</h3>';
-                    }
+                    }else if (isset($_POST['change_passa'])) {
 
+                        $email = $_POST['change_passa'];
+                        echo $email;
+                        $pass = "pass123";
+                        $hash = password_hash($pass, PASSWORD_DEFAULT);
+
+                        $query = "UPDATE admin
+                                SET password = '$hash'
+                                where email = '$email'";
+
+                        if ($dbc->query($query) === TRUE)
+                            print '<h3>Contrasenas han sido actualizadas exitosamente</h3>';
+                        else
+                            print '<h3style="color:red;"> No se pudo actualizar la contrasena de los estudiantes ya que : <br/>' . $dbc->error . '</h3>';
+                    }
 
                     $query = "SELECT COUNT(course_id) as contador
                      FROM course";
@@ -101,6 +115,7 @@ if (!isset($_GET['desde'])) {
 
                     $query = "SELECT student_id,user_name,last_name,email
                     FROM student";
+
                     $queryA = "SELECT user_name,user_lastname,email
                     FROM admin";
 
@@ -126,7 +141,7 @@ if (!isset($_GET['desde'])) {
                             while ($row = $result->fetch_assoc()) {
                                 print "<tr><form method='POST'>
             
-                            <td><button type='submit' name='change_pass' class='delete' value='" . $row['student_id'] . "'>Cambiar Contrasena</button></td>
+                            <td><button type='submit' name='change_passu' class='delete' value='" . $row['student_id'] . "'>Cambiar Contrasena</button></td>
                             <td>" . $row['student_id'] . "<input type='hidden' name='student_id' value='" . $row["student_id"] . "'></td>
                             <td>" . $row['user_name'] . "<input type='hidden' name='user_name' value='" . $row["user_name"] . "'></td>
                             <td>" . $row['last_name'] . "</td>
@@ -160,7 +175,7 @@ if (!isset($_GET['desde'])) {
                             while ($row = $result->fetch_assoc()) {
                                 print "<tr><form method='POST'>
             
-                            <td><button type='submit' name='change_pass' class='delete' value='" . $row['email'] . "'>Cambiar Contrasena</button></td>
+                            <td><button type='submit' name='change_passa' class='delete' value='" . $row['email'] . "'>Cambiar Contrasena</button></td>
                             <td>" . $row['user_name'] . "<input type='hidden' name='user_name' value='" . $row["user_name"] . "'></td>
                             <td>" . $row['user_lastname'] . "</td>
                             <td>" . $row['email'] . "</td> 
