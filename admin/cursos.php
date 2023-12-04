@@ -104,7 +104,7 @@ if (!isset($_GET['desde'])) {
                         if ($result = $dbc->query($query)) {
                             print   "<div class='row d-flex justify-content-end pr-3'>
                             <div class='col'>
-                            <a href='crear_curso.php' class='btn btn-primary d-flex mw-25'>Crear curso&nbsp;&nbsp;<i class='gg-add-r'></i></a>
+                            <a href='crear_curso.php' class='btn btn-primary  mw-25'><p class=' m-0 d-flex justify-content-end'>Crear curso&nbsp;&nbsp;<i class='gg-add-r'></i></p></a>
                             </div>
                             <div class='col-'><form class='d-flex'>
                             <input class='form-control me-sm-2' type='search' placeholder='Search'>
@@ -130,12 +130,12 @@ if (!isset($_GET['desde'])) {
                         </form></tr>";
                             }
                             print "</table>";
-                            echo "<h2 style='text-align:center'>";
+                            // echo "<h2 style='text-align:center'>";
 
-                            for ($i = 1; $i <= $total_pags; $i++)
-                                echo "<a  class='btn pages' href='cursos.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
+                            // for ($i = 1; $i <= $total_pags; $i++)
+                            //     echo "<a  class='btn pages' href='cursos.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
 
-                            echo "</h2>";
+                            // echo "</h2>";
                         }
                     } catch (Exception $e) {
                         print "<h3 style=\"color:red\">Error en el query: " . $dbc->error . "</h3>";
