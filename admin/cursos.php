@@ -73,10 +73,7 @@ if (!isset($_GET['desde'])) {
                     include_once("../db_info.php");
                     //query para insertar clases
                     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
-                        //esto lo hice con chat pq cuando le daba al boton como no tenia un name como tal pues boom
-                        // yo dije pero pq no me funciona esto xd y era el name ese que faltaba
-                        //pero esto divide los valores del post
-                        // list($course_id, $section_id) = explode("|", $_POST['delete']);
+                        
                         $course_id = $_POST['course_id'];
 
                         $query_eli = "DELETE FROM course 
@@ -136,7 +133,7 @@ if (!isset($_GET['desde'])) {
                             echo "<h2 style='text-align:center'>";
 
                             for ($i = 1; $i <= $total_pags; $i++)
-                                echo "<a  class='btn pages' href='courses.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
+                                echo "<a  class='btn pages' href='cursos.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
 
                             echo "</h2>";
                         }
