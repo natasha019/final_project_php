@@ -98,7 +98,7 @@ if (!isset($_SESSION['authenticated'])) {
                         if ($result = $dbc->query($query)) {
                             print   "<div class='row d-flex justify-content-end pr-3'>
                             <div class='col-'>
-                            <form class='d-flex' method='GET' action='myCourses.php'>
+                            <form class='d-flex' method='GET' action='mis_cursos.php'>
                             <input class='form-control me-sm-2' type='search' placeholder='Search' name='query_busqueda'>
                             <button class='btn btn-secondary my-2 my-sm-0' type='submit'>Search</button>
                         </form>
