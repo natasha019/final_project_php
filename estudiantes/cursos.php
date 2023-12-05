@@ -69,6 +69,8 @@ if (!isset($_GET['desde'])) {
                 <div>
                     <?php
                     include_once("../db_info.php");
+
+
                     //query para insertar clases
                     $student_id = $_SESSION['student_num'];
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -97,9 +99,9 @@ if (!isset($_GET['desde'])) {
                     $result = $dbc->query($query);
                     $row = $result->fetch_assoc();
                     //paginacion
-                    $contador = $row['contador'];
-                    $total_pags = ceil($contador / $limite);
-                    $pag_actual = ceil($desde / $limite) + 1;
+                    // $contador = $row['contador'];
+                    // $total_pags = ceil($contador / $limite);
+                    // $pag_actual = ceil($desde / $limite) + 1;
 
                     //selecciona los cursos en los que el estudiante se prematriculo
                     $queryE = "SELECT course_id FROM enrollment WHERE student_id = ?";
@@ -168,18 +170,18 @@ if (!isset($_GET['desde'])) {
                                 }
                                 print "></td>
                                 <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>                               
-                                <td>" . $row['title'] . "</td>
+                                <td>" . mb_strtoupper($row['title']) . "</td>
                                 <td>" . $row['credits'] . "</td>
                                 <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>
                                 </form></tr>";
                             }
                             print "</table>";
-                            echo "<h2 style='text-align:center'>";
+                            // echo "<h2 style='text-align:center'>";
 
-                            for ($i = 1; $i <= $total_pags; $i++)
-                                echo "<a  class='btn pages' href='cursos.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
+                            // for ($i = 1; $i <= $total_pags; $i++)
+                            //     echo "<a  class='btn pages' href='cursos.php?desde=" . (($i - 1) * $limite) . "&limite=$limite'> $i </a>&nbsp;&nbsp;";
 
-                            echo "</h2>";
+                            // echo "</h2>";
                         }
                     } catch (Exception $e) {
                         print "<h3 style=\"color:red\">Error en el query: " . $dbc->error . "</h3>";

@@ -146,7 +146,7 @@ if (!isset($_GET['desde'])) {
                         if ($result = $dbc->query($query)) {
                             print   "<div class='row d-flex justify-content-end pr-3'>
                             <div class='col'>
-                            <a href='crear_seccion.php' class='btn btn-primary d-flex mw-25'>Crear seccion&nbsp;&nbsp;<i class='gg-add-r'></i></a>
+                            <a href='crear_seccion.php' class='btn btn-primary mw-25'><p class='m-0 d-flex justify-content-end'>Crear seccion&nbsp;&nbsp;<i class='gg-add-r'></i></p></a>
                              </div>
                             <div class='col-'><form class='d-flex'>
                             <input class='form-control me-sm-2' type='search' placeholder='Search'>
@@ -158,7 +158,6 @@ if (!isset($_GET['desde'])) {
                             print "<tr> 
                             <th></th>
                             <th></th>
-                        <th>Codigo</th>
                         <th>Seccion</th>                        
                         <th>Nombre del curso</th>
                         <th>Creditos</th>
@@ -169,7 +168,7 @@ if (!isset($_GET['desde'])) {
                             <td><button type='submit' name='delete' class='delete' value='" . $row['course_id'] . "|" . $row['section_id'] . "'><i class='gg-trash-empty'></i></button></td>
                             <td><a href='editar_seccion.php?course_id=" . $row['course_id'] . "&section_id=" . $row['section_id'] . "'>Editar</a></td>
                             <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>                               
-                            <td>" . $row['title'] . "</td>
+                            <td>" . mb_strtoupper($row['title']) . "</td>
                             <td>" . $row['credits'] . "</td>
                             <td>" . $row['capacity'] . "<input type='hidden' name='capacity' value='" . $row["capacity"] . "'></td>
                         </form></tr>";

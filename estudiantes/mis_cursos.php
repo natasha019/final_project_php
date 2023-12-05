@@ -118,7 +118,7 @@ if (!isset($_SESSION['authenticated'])) {
                                 print "<tr><form method='POST'>
                             <td><input type='submit' value='Eliminar'></td>
                             <td>" . $row['course_id'] . "-" . $row['section_id'] . "<input type='hidden' name='course_id' value='" . $row["course_id"] . "'><input type='hidden' name='section_id' value='" . $row["section_id"] . "'></td>                               
-                            <td>" . $row['title'] . "</td>
+                            <td>" . mb_strtoupper($row['title']) . "</td>
                             <td>" . $row['credits'] . "</td>
                             <td>";
                                 if ($row['status'] == 0)

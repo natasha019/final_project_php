@@ -75,7 +75,7 @@ if (!isset($_GET['desde'])) {
                     if (isset($_POST['change_passu'])) {
 
                         $student_id = $_POST['change_passu'];
-                        echo $student_id;
+                        // echo $student_id;
                         $pass = "pass123";
                         $hash = password_hash($pass, PASSWORD_DEFAULT);
 
@@ -87,7 +87,7 @@ if (!isset($_GET['desde'])) {
                             print '<h3>Contrasenas han sido actualizadas exitosamente</h3>';
                         else
                             print '<h3style="color:red;"> No se pudo actualizar la contrasena de los estudiantes ya que : <br/>' . $dbc->error . '</h3>';
-                    }else if (isset($_POST['change_passa'])) {
+                    } else if (isset($_POST['change_passa'])) {
 
                         $email = $_POST['change_passa'];
                         echo $email;
