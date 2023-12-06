@@ -118,7 +118,6 @@
 
 
                                     if (password_verify($pass, $row['password'])) {
-                                        //if ($pass === $row['password']) {
                                         session_start();
                                         $_SESSION['student_num'] = $row['student_id'];
                                         $_SESSION['nombre'] = $row['user_name'] . ' ' . $row['user_lastname'];

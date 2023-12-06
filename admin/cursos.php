@@ -96,9 +96,22 @@ if (!isset($_GET['desde'])) {
                     $total_pags = ceil($contador / $limite);
                     $pag_actual = ceil($desde / $limite) + 1;
 
-                    $query = "SELECT course_id, title, credits
-                    FROM course                  
-                    ORDER BY course_id";
+                    
+                      // Check if a search query for course_id is provided
+                      if (isset($_GET['query_busqueda'])) {
+                        $query_busqueda = $_GET['query_busqueda'];
+
+                        $query = "SELECT course_id, title, credits 
+                            FROM course 
+                           
+                            WHERE course_id LIKE '%$query_busqueda%'";
+
+                    } else {
+                        // Default query without search
+                        $query = "SELECT course_id, title, credits
+                        FROM course                  
+                        ORDER BY course_id";
+                    }
 
                     try {
                         if ($result = $dbc->query($query)) {
@@ -106,8 +119,8 @@ if (!isset($_GET['desde'])) {
                             <div class='col'>
                             <a href='crear_curso.php' class='btn btn-primary  mw-25'><p class=' m-0 d-flex justify-content-end'>Crear curso&nbsp;&nbsp;<i class='gg-add-r'></i></p></a>
                             </div>
-                            <div class='col-'><form class='d-flex'>
-                            <input class='form-control me-sm-2' type='search' placeholder='Search'>
+                            <div class='col-'><form class='d-flex' method='GET' action='cursos.php'>
+                            <input class='form-control me-sm-2' type='search' placeholder='Search' name='query_busqueda'>
                             <button class='btn btn-secondary my-2 my-sm-0' type='submit'>Search</button>
                           </form></div>
                           </div>";

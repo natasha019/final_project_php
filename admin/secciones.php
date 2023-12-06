@@ -142,14 +142,35 @@ if (!isset($_GET['desde'])) {
                     INNER JOIN section s ON s.course_id = c.course_id
                     ORDER BY c.course_id, s.section_id";
 
+
+
+                      // Check if a search query for course_id is provided
+                      if (isset($_GET['query_busqueda'])) {
+                        $query_busqueda = $_GET['query_busqueda'];
+
+                        $query = "SELECT DISTINCT c.course_id, c.title, s.section_id, c.credits, s.capacity
+                        FROM course c
+                        INNER JOIN section s ON s.course_id = c.course_id
+                        WHERE c.course_id LIKE '%$query_busqueda%'";
+                        
+
+                    } else {
+                         //query para ver las secciones
+                        $query = "SELECT DISTINCT c.course_id, c.title, s.section_id, c.credits, s.capacity
+                        FROM course c
+                        INNER JOIN section s ON s.course_id = c.course_id
+                        ORDER BY c.course_id, s.section_id";
+                    }
+
+
                     try {
                         if ($result = $dbc->query($query)) {
                             print   "<div class='row d-flex justify-content-end pr-3'>
                             <div class='col'>
                             <a href='crear_seccion.php' class='btn btn-primary mw-25'><p class='m-0 d-flex justify-content-end'>Crear seccion&nbsp;&nbsp;<i class='gg-add-r'></i></p></a>
                              </div>
-                            <div class='col-'><form class='d-flex'>
-                            <input class='form-control me-sm-2' type='search' placeholder='Search'>
+                            <div class='col-'><form class='d-flex' method='GET' action='secciones.php'>
+                            <input class='form-control me-sm-2' type='search' placeholder='Search' name='query_busqueda'>
                             <button class='btn btn-secondary my-2 my-sm-0' type='submit'>Search</button>
                           </form></div>
                           </div>";

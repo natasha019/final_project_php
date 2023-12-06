@@ -147,7 +147,7 @@ if (!isset($_GET['desde'])) {
 
                             print "<div class='row d-flex justify-content-end pr-3'>
                             <div class='col-'>
-                                <form class='d-flex' method='GET' action='courses.php'>
+                                <form class='d-flex' method='GET' action='cursos.php'>
                                     <input class='form-control me-sm-2' type='search' placeholder='Search' name='query_busqueda'>
                                     <button class='btn btn-secondary my-2 my-sm-0' type='submit'>Search</button>
                                 </form>
