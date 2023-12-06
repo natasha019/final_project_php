@@ -1,14 +1,14 @@
 <?php $titulo = "";
 
-// $servername = '136.145.29.193';
-// $dbname = 'matricula';
-// $username = 'natramri';
-// $password = 'nat84023';
+$servername = '136.145.29.193';
+$dbname = 'natramri_db';
+$username = 'natramri';
+$password = 'nat84023';
 
-$servername = 'localhost';
-$dbname = 'matricula';
-$username = 'root';
-$password = '';
+// $servername = 'localhost';
+// $dbname = 'matricula';
+// $username = 'root';
+// $password = '';
 
 $dbc = new mysqli($servername, $username, $password, $dbname);
 if ($dbc->connect_error) {

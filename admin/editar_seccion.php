@@ -96,7 +96,7 @@ if (!isset($_GET['desde'])) {
                                      </div>
                                      <div class="form-group">
                                          <label for="capacity" class="form-label mt-4">Capacidad</label>
-                                         <input type="number" class="form-control" name="capacity" id="capacity" value="' . $row['capacity'] . '" min="10" max="25" required>
+                                         <input type="number" class="form-control" name="capacity" id="capacity" value="' . $row['capacity'] . '" min="2" max="25" required>
                                      </div>
                                      <div class="modal-footer">
                                      <input class="btn btn-primary" type="submit" name="editar" id="Editar" value="Editar" />
@@ -109,6 +109,7 @@ if (!isset($_GET['desde'])) {
                         $course = $_POST['course_id'];
                         $section = htmlspecialchars($_POST['section_id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
                         $capacity = htmlspecialchars($_POST['capacity'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
+
 
                         $query = "UPDATE section 
                                   SET  section_id=?, capacity=?

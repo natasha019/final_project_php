@@ -69,7 +69,7 @@ $titulo = "Estudiantes de Honor UPRA";
 
                         print '<input type="hidden" name="matricula" value="true"/>';
                         print '<div style="text-align:center;">
-                                <input type="submit" name="submit" value="Correr pre-matricula"/>
+                                <input type="submit" id= "correrMatricula" name="submit" value="Correr pre-matricula"/>
                                 </div> </form>';
                     } elseif (isset($_POST['matricula']) && $_POST['matricula'] == "true") //vino del form
                     {
@@ -86,6 +86,16 @@ $titulo = "Estudiantes de Honor UPRA";
                             ORDER BY timestamp ASC
                             LIMIT ?";
 
+                            // $queryUpdateM = "UPDATE enrollment AS e
+                            // JOIN student AS s ON e.student_id = s.student_id
+                            // SET e.status = 1
+                            // WHERE e.course_id = ?
+                            //       AND e.section_id = ?
+                            //       AND e.status = 0
+                            // ORDER BY s.year_of_study DESC
+                            // LIMIT ?";
+
+                            //echo $row['capacity'];
                             $stmt = $dbc->prepare($queryUpdateM);
                             $stmt->bind_param("ssi", $row['course_id'], $row['section_id'], $row['capacity']);
                             $stmt->execute();
@@ -105,6 +115,8 @@ $titulo = "Estudiantes de Honor UPRA";
                             $stmt2->bind_param("ss", $row['course_id'], $row['section_id']);
                             $stmt2->execute();
                         }
+
+                        print '<h3>Confirmacion de matricula exitosa.</h3>';
                     } else {
                         $dbc->close();
                         //header('Location: admin/cursos.php');

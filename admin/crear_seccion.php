@@ -91,7 +91,7 @@ if (!isset($_GET['desde'])) {
                         } else {
                             // Insert the selected course into the database with the current timestamp
                             $sql = "INSERT INTO section (course_id, section_id, capacity) 
-                                VALUES ($course_id, $section_id, $capacity)";
+                                VALUES ('$course_id', '$section_id', $capacity)";
                             if ($dbc->query($sql) === TRUE) {
                                 print '<div class="my-5 d-flex" >
                                     <h3>La seccion fue creada. <a href="secciones.php" class="d-flex ">Volver a Secciones&nbsp;&nbsp;</a></h3>
@@ -115,7 +115,7 @@ if (!isset($_GET['desde'])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="capacity" class="form-label mt-4">Capacidad</label>
-                                    <input type="number" class="form-control" name="capacity" id="capacity" placeholder="20" min="10" max="25" required>
+                                    <input type="number" class="form-control" name="capacity" id="capacity" placeholder="20" min="2" max="25" required>
                                 </div>
                                 <div class="modal-footer">
                                     <input class="btn btn-primary" type="submit" name="submit" id="submitForm" value="Crear seccion" />

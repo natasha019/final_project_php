@@ -164,7 +164,7 @@ if (!isset($_GET['desde'])) {
                             </tr>";
                             while ($row = $result->fetch_assoc()) {
                                 print "<tr><form method='POST'>
-                                <td><input type='submit' value='Add Course'";
+                                <td><input type='submit' value='Matricular'";
                                 if (in_array($row['course_id'], $coursesEnrolled)) {
                                     print "disabled";
                                 }
